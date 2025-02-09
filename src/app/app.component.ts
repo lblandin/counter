@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CounterServiceService } from './service/counter-service.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +12,10 @@ export class AppComponent {
   
   countElectric = 0;
   countThermic = 0;
-  allCounter = 0;
+  allCounter$ = new Observable<number>();
 
 
   ngOnInit() {
-    this._counterService.getCounterElectricSelectedObs().pipe().subscribe((counterElectric: number) => this.countElectric = counterElectric)
-    this._counterService.getCounterThermicSelectedObs().pipe().subscribe((counterThermic: number) => this.countThermic = counterThermic)
-    this._counterService.getCounterObs().pipe().subscribe((counter: number) => this.allCounter = counter)
+    this.allCounter$ = this._counterService.getCounterObs();
   }
 }
