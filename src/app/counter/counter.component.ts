@@ -5,8 +5,7 @@ import { combineLatest } from 'rxjs';
 @Component({
     selector: 'app-counter',
     templateUrl: './counter.component.html',
-    styleUrl: './counter.component.scss',
-    standalone: false
+    styleUrl: './counter.component.scss'
 })
 export class CounterComponent {
   @Output() onCounter = new EventEmitter<number>();
@@ -19,7 +18,7 @@ export class CounterComponent {
   counterThermic = this._counterService.getCounterThermicSelectedObs();
 
   ngOnInit(): void {
-    combineLatest(this.counterElectric, this.counterThermic).pipe().subscribe(([electric, thermic]) =>
+    combineLatest([this.counterElectric, this.counterThermic]).pipe().subscribe(([electric, thermic]) =>
     {
       this.counterTotal = electric + thermic;
       console.log('✌️this.counter --->', this.counterTotal);
