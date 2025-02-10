@@ -3,9 +3,10 @@ import { CounterServiceService } from '../service/counter-service.service';
 import { combineLatest } from 'rxjs';
 
 @Component({
-  selector: 'app-counter',
-  templateUrl: './counter.component.html',
-  styleUrl: './counter.component.scss'
+    selector: 'app-counter',
+    templateUrl: './counter.component.html',
+    styleUrl: './counter.component.scss',
+    standalone: false
 })
 export class CounterComponent {
   @Output() onCounter = new EventEmitter<number>();

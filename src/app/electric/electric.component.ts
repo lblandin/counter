@@ -2,9 +2,10 @@ import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CounterServiceService } from '../service/counter-service.service';
 
 @Component({
-  selector: 'app-electric',
-  templateUrl: './electric.component.html',
-  styleUrl: './electric.component.scss'
+    selector: 'app-electric',
+    templateUrl: './electric.component.html',
+    styleUrl: './electric.component.scss',
+    standalone: false
 })
 export class ElectricComponent {
   @Input() allCount: number = 0;
