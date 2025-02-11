@@ -24,7 +24,9 @@ export class CounterComponent {
     combineLatest([this.counterElectric, this.counterThermic]).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(([electric, thermic]) =>
     {
       this.counterTotal = electric + thermic;
-      console.log('✌️this.counter --->', this.counterTotal);
+      this._counterService.nextCounter(this.counterTotal);
+
+      
     }
   )}
 

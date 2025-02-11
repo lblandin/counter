@@ -4,23 +4,18 @@ import { Observable } from 'rxjs';
 import { ThermiqueComponent } from './thermique/thermique.component';
 import { ElectricComponent } from './electric/electric.component';
 import { AsyncPipe } from '@angular/common';
+import { TotalCounterComponent } from './total-counter/total-counter.component';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
     standalone: true,
-    imports: [ThermiqueComponent, ElectricComponent, AsyncPipe]
+    imports: [ThermiqueComponent, ElectricComponent, TotalCounterComponent]
 })
 export class AppComponent {
   private _counterService = inject(CounterServiceService)
   
-  countElectric = 0;
-  countThermic = 0;
-  allCounter$ = new Observable<number>();
-
-
-  ngOnInit() {
-    this.allCounter$ = this._counterService.getCounterObs();
-  }
+  countElectric = this._counterService.getCounterElectricSelectedValue();
+  countThermic = this._counterService.getCounterThermicSelectedValue();
 }
