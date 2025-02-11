@@ -1,6 +1,7 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { Component, DestroyRef, EventEmitter, inject, Output } from '@angular/core';
 import { CounterServiceService } from '../service/counter-service.service';
 import { combineLatest } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-counter',
@@ -10,6 +11,8 @@ import { combineLatest } from 'rxjs';
 export class CounterComponent {
   @Output() onCounter = new EventEmitter<number>();
 
+  public destroyRef = inject(DestroyRef);
+
   private _counterService = inject(CounterServiceService)
   
   counter = 0;
@@ -18,7 +21,7 @@ export class CounterComponent {
   counterThermic = this._counterService.getCounterThermicSelectedObs();
 
   ngOnInit(): void {
-    combineLatest([this.counterElectric, this.counterThermic]).pipe().subscribe(([electric, thermic]) =>
+    combineLatest([this.counterElectric, this.counterThermic]).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(([electric, thermic]) =>
     {
       this.counterTotal = electric + thermic;
       console.log('✌️this.counter --->', this.counterTotal);
